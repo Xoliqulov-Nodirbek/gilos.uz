@@ -15,6 +15,7 @@ const showDate = function(dateString) {
 }
 
 const renderProduct = function(product) {
+  
   const elProduct = createElement("li", "col-4");
   
   const elProductDiv = createElement("div", "card");      // ----------------------- >
@@ -80,6 +81,7 @@ const renderProduct = function(product) {
   const elCardBodyBtnDeleteI = createElement("i", "fa-solid fa-trash");
   elCardBodyBtnDelete.append(elCardBodyBtnDeleteI);
   elCardBodyBtnWrapper.append(elCardBodyBtnDelete);
+  elCardBodyBtnDelete.setAttribute("id", `product`)
   
   
   
@@ -139,7 +141,7 @@ elForm.addEventListener("submit", function(evt) {
     addProductModal.hide();
     
     const product = renderProduct(newCard);
-    elProductsWrapper.append(product);
+    elProductsWrapper.append(product[i].id);
   }
 })
 
@@ -152,6 +154,16 @@ for (let k = 0; k < manufacturers.length; k++) {
   option.textContent = manufacturers[k].name;
   select.append(option);
 }
+
+
+// --------------- Delete product -----------------
+
+
+elProductsWrapper.addEventListener("click", function(evt) {
+  if (evt.target.matches(".btn-danger")) {
+    console.log(evt.target.curr);
+  }
+})
 
 // const filterForm = document.querySelector(".form-filter");
 
