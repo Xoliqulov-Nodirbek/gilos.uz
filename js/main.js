@@ -81,7 +81,7 @@ const renderProduct = function(product) {
   const elCardBodyBtnDeleteI = createElement("i", "fa-solid fa-trash");
   elCardBodyBtnDelete.append(elCardBodyBtnDeleteI);
   elCardBodyBtnWrapper.append(elCardBodyBtnDelete);
-  elCardBodyBtnDelete.setAttribute("id", `product`)
+  elCardBodyBtnDelete.setAttribute("data-id", product.id);  
   
   
   
@@ -141,7 +141,7 @@ elForm.addEventListener("submit", function(evt) {
     addProductModal.hide();
     
     const product = renderProduct(newCard);
-    elProductsWrapper.append(product[i].id);
+    elProductsWrapper.append(product);
   }
 })
 
@@ -161,7 +161,7 @@ for (let k = 0; k < manufacturers.length; k++) {
 
 elProductsWrapper.addEventListener("click", function(evt) {
   if (evt.target.matches(".btn-danger")) {
-    console.log(evt.target.curr);
+    console.log(evt.target.dataset.id);
   }
 })
 
