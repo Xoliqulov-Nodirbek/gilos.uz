@@ -79,7 +79,7 @@ const renderProduct = function(product) {
   const elCardBodyBtnDelete = createElement("button", "btn rounded-0 btn-danger");
   const elCardBodyBtnDeleteI = createElement("i", "fa-solid fa-trash");
   elCardBodyBtnDelete.append(elCardBodyBtnDeleteI);
-  elCardBodyBtnWrapper.append(elCardBodyBtnDelete);v 
+  elCardBodyBtnWrapper.append(elCardBodyBtnDelete);
   
   
   
