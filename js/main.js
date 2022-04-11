@@ -161,9 +161,29 @@ for (let k = 0; k < manufacturers.length; k++) {
 
 elProductsWrapper.addEventListener("click", function(evt) {
   if (evt.target.matches(".btn-danger")) {
-    console.log(evt.target.dataset.id);
+    const clickedItemIndexId = +evt.target.dataset.id;
+    
+    const clickedItemIndex = products.findIndex(function (element) {
+      return element.id === clickedItemIndexId; 
+    });
+    
+    products.splice(clickedItemIndex, 1);
+
+    elProductsWrapper.innerHTML = "";
+    
+    products.forEach(function (product) {
+      const elProduct = renderProduct(product);
+      elProductsWrapper.append(elProduct);
+    });
+    
   }
-})
+});
+
+
+// ------------- Edit product ------------
+
+
+
 
 // const filterForm = document.querySelector(".form-filter");
 
