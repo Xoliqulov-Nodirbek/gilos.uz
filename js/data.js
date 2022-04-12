@@ -40,9 +40,5 @@ const manufacturers = [
   {
     id: 3,
     name: "Samsung"
-  },
-  {
-    id: 4,
-    name: "Redmi"
   }
 ];

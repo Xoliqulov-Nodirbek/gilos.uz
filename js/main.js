@@ -132,7 +132,7 @@ const renderProducts = function() {
   // --------------  Add Student  ---------------
   
   const elForm = document.querySelector("#add-form");
-  const addProductModalEL = document.querySelector("#edit-student-modal");
+  const addProductModalEL = document.querySelector("#add-student-modal");
   const addProductModal = new bootstrap.Modal(addProductModalEL);
   
   
@@ -171,14 +171,16 @@ const renderProducts = function() {
   
   // -------> Add Form Select <----------
   
-  const select = document.querySelector("#product-manufacturer");
+  const selectAdd = document.querySelector("#product-manufacturer");
   
-  for (let k = 0; k < manufacturers.length; k++) {
-    const option = createElement("option");
-    option.textContent = manufacturers[k].name;
-    select.append(option);
+  const manufacturerAppend = function(select) {
+    for (let k = 0; k < manufacturers.length; k++) {
+      const option = createElement("option");
+      option.textContent = manufacturers[k].name;
+      select.append(option);
+    }
   }
-  
+  manufacturerAppend(selectAdd);
   
   // --------------- Delete and Edit product -----------------
   
@@ -213,7 +215,7 @@ const renderProducts = function() {
       
       editTitle.value = clickedItemIndex.title;
       editPrice.value = clickedItemIndex.price;
-      editManufacturer.value = clickedItemIndex.manufacturers;
+      manufacturerAppend(editManufacturer);
     }
   });
   
