@@ -16,6 +16,15 @@ const products = [
     model: "Samsung",
     addedDate: new Date("2021-10-12").toISOString(),
     benefits: ["32gb", "1tb"]
+  },
+  {
+    id: 124,
+    title: "Apple 13 Pro Max",
+    img: "https://picsum.photos/300/200",
+    price: 5300000,
+    model: "Apple",
+    addedDate: new Date("2021-10-12").toISOString(),
+    benefits: ["32gb", "1tb", "best camera"]
   }
 ]
 

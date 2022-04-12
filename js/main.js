@@ -14,6 +14,10 @@ const showDate = function(dateString) {
   return `${addZero(date.getDate())}.${addZero(date.getMonth() + 1)}.${date.getFullYear()} ${addZero(date.getHours())}:${addZero(date.getMinutes())}`
 }
 
+const rendersProduct  = function(product) {
+
+}
+
 const renderProduct = function(product) {
   
   const elProduct = createElement("li", "col-4");
@@ -71,6 +75,10 @@ const renderProduct = function(product) {
   // ------- Edit --------
   const elCardBodyBtnEdit = createElement("button", "btn rounded-0 btn-secondary");
   const elCardBodyBtnEditI = createElement("i", "fa-solid fa-pen");
+  elCardBodyBtnEditI.pointerEvents = "none";
+  elCardBodyBtnEdit.setAttribute("data-bs-toggle", "modal"),
+  elCardBodyBtnEdit.setAttribute("data-bs-target", "#edit-student-modal"),
+  elCardBodyBtnEdit.setAttribute("data-id", product.id),
   elCardBodyBtnEdit.append(elCardBodyBtnEditI);
   elCardBodyBtnWrapper.append(elCardBodyBtnEdit);
   
@@ -79,6 +87,7 @@ const renderProduct = function(product) {
   // ------- Delete --------
   const elCardBodyBtnDelete = createElement("button", "btn rounded-0 btn-danger");
   const elCardBodyBtnDeleteI = createElement("i", "fa-solid fa-trash");
+  elCardBodyBtnDeleteI.style.pointerEvents = "none";
   elCardBodyBtnDelete.append(elCardBodyBtnDeleteI);
   elCardBodyBtnWrapper.append(elCardBodyBtnDelete);
   elCardBodyBtnDelete.setAttribute("data-id", product.id);  
@@ -156,8 +165,12 @@ for (let k = 0; k < manufacturers.length; k++) {
 }
 
 
-// --------------- Delete product -----------------
+// --------------- Delete and Edit product -----------------
 
+
+const editTitle = document.querySelector("#edit-product-title");
+const editPrice = document.querySelector("#edit-price");
+const editManufacturer = document.querySelector("#edit-product-manufacturer");
 
 elProductsWrapper.addEventListener("click", function(evt) {
   if (evt.target.matches(".btn-danger")) {
@@ -168,7 +181,7 @@ elProductsWrapper.addEventListener("click", function(evt) {
     });
     
     products.splice(clickedItemIndex, 1);
-
+    
     elProductsWrapper.innerHTML = "";
     
     products.forEach(function (product) {
@@ -176,36 +189,45 @@ elProductsWrapper.addEventListener("click", function(evt) {
       elProductsWrapper.append(elProduct);
     });
     
+  } else if (evt.target.matches(".btn-secondary")) {
+    const clickedId = +evt.target.dataset.id;
+    
+    const clickedItemIndex = products.find(function (element) {
+      return element.id === clickedId; 
+    });
+    
+    editTitle.value = clickedItemIndex.title;
+    editPrice.value = clickedItemIndex.price;
+    editManufacturer.value = clickedItemIndex.manufacturers;
   }
 });
 
 
-// ------------- Edit product ------------
+// ------------- Filter product ------------
 
 
+const filterForm = document.querySelector(".form-filter");
 
+filterForm.addEventListener("submit", function(evt) {
+  evt.preventDefault();
+  
+  const elements = evt.target.elements;
+  
+  const fromValue = elements.from.value; 
+  const toValue = elements.to.value;
+  
+  const filteredProduct = products
+  .filter(function(fromProduct) {
+    return fromProduct.price >= fromValue;
+  })
+  .filter(function(toProduct) {
+    return toValue ? toProduct.price <= toValue : true;
+  }).sort(function (a, b) {
+    return a.price - b.price;
+  })
+  console.log(filteredProduct);
+}); 
 
-// const filterForm = document.querySelector(".form-filter");
-
-// filterForm.addEventListener("submit", function(evt) {
-//   evt.preventDefault();
-
-//   const elements = evt.target.elements;
-
-//   const fromValue = elements.from.value; 
-//   const toValue = elements.to.value;
-
-//   const filteredProduct = products
-//   .filter(function(fromProduct) {
-//     return fromProduct.price >= fromValue;
-//   })
-//   .filter(function(toProduct) {
-//     return toProduct.price <= toValue;
-//   }).filter(function(product) {
-
-//   })
-//   console.log(filteredProduct);
-// });
 
 
 
