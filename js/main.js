@@ -154,7 +154,7 @@ elForm.addEventListener("submit", function(evt) {
       img: "https://picsum.photos/300/200",
       price: priceInputValue,
       benefits: [],
-      model: select.value,
+      model: manufacturerSelectValue,
       addedDate: new Date("2021-10-12").toISOString(),
     }
     
