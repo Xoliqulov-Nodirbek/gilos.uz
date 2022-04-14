@@ -18,7 +18,7 @@ const products = [
     benefits: ["32gb", "1tb"]
   },
   {
-    id: 124,
+    id: 125,
     title: "Apple 13 Pro Max",
     img: "https://picsum.photos/300/200",
     price: 5300000,
