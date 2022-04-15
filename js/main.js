@@ -18,9 +18,7 @@ let showingProducts = products.slice();
 
 const elProductsWrapper = document.querySelector(".products-wrapper");
 
-
 // -------------- > RenderProducts < ------------------
-
 
 const renderProducts = function() {
   elProductsWrapper.innerHTML = "";
@@ -33,7 +31,6 @@ const renderProducts = function() {
 }
 
 // ------------- > RenderProduct < ---------------
-
 
 const renderProduct = function(product) {
   
@@ -119,22 +116,20 @@ const renderProduct = function(product) {
 
 // ------------ Wrapper ------------
 
-
 for (let i = 0; i < products.length; i++) {
   const elProduct = renderProduct(products[i]);
   
   elProductsWrapper.append(elProduct);
 }
 
-
 // --------------  Add Student  ---------------
 
-const elForm = document.querySelector("#add-form");
+const addForm = document.querySelector("#add-form");
 const addProductModalEL = document.querySelector("#add-student-modal");
 const addProductModal = new bootstrap.Modal(addProductModalEL);
 
 
-elForm.addEventListener("submit", function(evt) {
+addForm.addEventListener("submit", function(evt) {
   evt.preventDefault();
   
   const elements = evt.target.elements;
@@ -155,11 +150,12 @@ elForm.addEventListener("submit", function(evt) {
       price: priceInputValue,
       benefits: [],
       model: manufacturerSelectValue,
-      addedDate: new Date("2021-10-12").toISOString(),
+      addedDate: new Date().toISOString(),
     }
     
     products.push(newCard);
-    elForm.reset();
+    localStorage.setItem("products", JSON.stringify(products));
+    addForm.reset();
     addProductModal.hide();
     
     const product = renderProduct(newCard);
@@ -170,6 +166,7 @@ elForm.addEventListener("submit", function(evt) {
 // -------> Add Form Select <----------
 
 const selectAdd = document.querySelector("#product-manufacturer");
+const editManufacturer = document.querySelector("#edit-product-manufacturer");
 
 const manufacturerAppend = function(select) {
   for (let k = 0; k < manufacturers.length; k++) {
@@ -179,13 +176,16 @@ const manufacturerAppend = function(select) {
   }
 }
 manufacturerAppend(selectAdd);
+manufacturerAppend(editManufacturer);
 
 // --------------- Delete and Edit product -----------------
 
+const editForm = document.querySelector("#edit-form");
+const editProductModalEL = document.querySelector("#edit-student-modal");
+const editProductModal = new bootstrap.Modal(editProductModalEL);
 
 const editTitle = document.querySelector("#edit-product-title");
 const editPrice = document.querySelector("#edit-price");
-const editManufacturer = document.querySelector("#edit-product-manufacturer");
 
 elProductsWrapper.addEventListener("click", function(evt) {
   if (evt.target.matches(".btn-danger")) {
@@ -194,8 +194,8 @@ elProductsWrapper.addEventListener("click", function(evt) {
     const clickedItemIndex = products.findIndex(function (element) {
       return element.id === clickedItemIndexId; 
     });
-    
     products.splice(clickedItemIndex, 1);
+    localStorage.setItem("products", JSON.stringify(products));
     
     elProductsWrapper.innerHTML = "";
     
@@ -213,13 +213,47 @@ elProductsWrapper.addEventListener("click", function(evt) {
     
     editTitle.value = clickedItemIndex.title;
     editPrice.value = clickedItemIndex.price;
-    manufacturerAppend(editManufacturer);
+    
+    editForm.setAttribute("data-editing-id", clickedItemIndex)
   }
+  
+  editForm.addEventListener("submit", function(evt) {
+    evt.preventDefault();
+    const elements = evt.target.elements;
+    const editingItemId = +elements.dataset.editingId;
+    
+    const editManufacturerSelect = elements["edit-product-manufacturer"];
+    
+    const editProductTitleInputValue = editTitle.value;
+    const editPriceInputValue = +editPrice.value;
+    const editManufacturerSelectValue = editManufacturerSelect.value;
+    
+    if (editProductTitleInputValue.trim() && editPriceInputValue.trim() && editManufacturerSelectValue.trim()) {
+      const newCard = {
+        id: editingItemId,
+        title: productTitleInputValue,
+        img: "https://picsum.photos/300/200",
+        price: priceInputValue,
+        benefits: [],
+        model: manufacturerSelectValue,
+        addedDate: new Date().toISOString(),
+      }
+
+      const editingItemIndex = products.findIndex(function (element) {
+        return element.id == editingItemId; 
+      });
+      
+      products.splice(editingItemIndex, 1, newCard);
+      localStorage.setItem("products", JSON.stringify(products));
+      editForm.reset();
+      editProductModal.hide();
+      renderProducts(newCard);
+    }
+  });
+  
 });
 
-
 // ------------- Filter product ------------
-
 
 const filterForm = document.querySelector(".form-filter");
 
