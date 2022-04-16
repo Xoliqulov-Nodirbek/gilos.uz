@@ -1,7 +1,7 @@
 const createElement = function(elName, className) {
   const createdElement = document.createElement(elName);
   createdElement.className = className;
-  return createdElement;
+  return createdElement;  
 }
 
 const addZero = function(number) {
@@ -17,11 +17,13 @@ const showDate = function(dateString) {
 let showingProducts = products.slice();
 
 const elProductsWrapper = document.querySelector(".products-wrapper");
+const elCount = document.querySelector(".count")
 
 // -------------- > RenderProducts < ------------------
 
 const renderProducts = function() {
   elProductsWrapper.innerHTML = "";
+  elCount.textContent = `Count: ${showingProducts.length}`
   
   showingProducts.forEach(function(student) {
     const elProduct = renderProduct(student);
@@ -33,15 +35,18 @@ const renderProducts = function() {
 // ------------- > RenderProduct < ---------------
 
 const renderProduct = function(product) {
-  
+
+  // const productTemplate = document.querySelector(".product-template");
+
   const elProduct = createElement("li", "col-4");
-  
+  // const elProduct = productTemplate.content.cloneNode(true);
+
   const elProductDiv = createElement("div", "card");      // ----------------------- >
   
   const elProductImg = createElement("img", "card-img-top");
   elProductImg.src = product.img;
   elProductDiv.append(elProductImg);
-  
+
   const elCardBody = createElement("div", "card-body");     // -------------------------- >
   
   // ------- Title --------
@@ -55,6 +60,7 @@ const renderProduct = function(product) {
   elCardBodyMark.textContent = product.price;
   elCardBodyPrice.append(elCardBodyMark);
   elCardBody.append(elCardBodyPrice);
+  
   
   // -------- Current Price --------
   const elCardBodyCurrentPrice = createElement("p", "card-text");
@@ -231,11 +237,11 @@ elProductsWrapper.addEventListener("click", function(evt) {
     if (editProductTitleInputValue.trim() && editPriceInputValue.trim() && editManufacturerSelectValue.trim()) {
       const newCard = {
         id: editingItemId,
-        title: productTitleInputValue,
+        title: editProductTitleInputValue,
         img: "https://picsum.photos/300/200",
-        price: priceInputValue,
+        price: editPriceInputValue,
         benefits: [],
-        model: manufacturerSelectValue,
+        model: editManufacturerSelectValue,
         addedDate: new Date().toISOString(),
       }
 

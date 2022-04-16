@@ -161,9 +161,53 @@
       </div>
     </div>
     
-    <script src="js/bootstrap.bundle.min.js"></script>
-    
-    <script src="js/data.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-  </html>
+    <template class="product-template">
+      <ul class="row list-unstyled g-3 products-wrapper">
+        
+        <li class="col-4">
+          <div class="card">
+            <img class="card-img-top" src="https://picsum.photos/300/200">
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <p class="card-text fw-bold"><mark class="undefined"></mark></p>
+              <p class="card-text"><s class="undefined"></s></p>
+              <p class="badge bg-success"></p><p class="card-text"></p>
+              <ul class="d-flex flex-wrap list-unstyled">
+                <li class="badge bg-primary me-1 mb-1"></li>
+                <li class="badge bg-primary me-1 mb-1"></li>
+              </ul>
+              <div class="position-absolute top-0 end-0 d-flex">
+                <button class="btn rounded-0 btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-student-modal" data-id="124">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="btn rounded-0 btn-danger" data-id="124">
+                  <i class="fa-solid fa-trash" style="pointer-events: none;">
+                  </i></button></div></div></div></li><li class="col-4">
+                    <div class="card">
+                      <img class="card-img-top" src="https://picsum.photos/300/200">
+                      <div class="card-body">
+                        <h3 class="card-title"></h3>
+                        <p class="card-text fw-bold"><mark class="undefined"></mark></p>
+                        <p class="card-text"><s class="undefined"></s></p>
+                        <p class="badge bg-success"></p>
+                        <p class="card-text"></p>
+                        <ul class="d-flex flex-wrap list-unstyled"></ul>
+                        <div class="position-absolute top-0 end-0 d-flex">
+                          <button class="btn rounded-0 btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-student-modal" data-id="234">
+                            <i class="fa-solid fa-pen"></i>
+                          </button><button class="btn rounded-0 btn-danger" data-id="234">
+                            <i class="fa-solid fa-trash" style="pointer-events: none;"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </template>
+                
+                <script src="js/bootstrap.bundle.min.js"></script>
+                
+                <script src="js/data.js"></script>
+                <script src="js/main.js"></script>
+              </body>
+              </html>
+              
